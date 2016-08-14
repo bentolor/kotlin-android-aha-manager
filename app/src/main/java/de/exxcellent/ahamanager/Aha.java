@@ -1,43 +1,24 @@
 package de.exxcellent.ahamanager;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.Date;
 import java.util.UUID;
 
 public class Aha {
-
-    private static final String JSON_ID = "id";
-    private static final String JSON_TITLE = "title";
-    private static final String JSON_SOLVED = "solved";
-    private static final String JSON_DATE = "date";
-
-    private UUID mId;
+    private final UUID mId;
     private String mTitle;
     private Date mDate;
-    private boolean mSolved;
+    private boolean mUseful;
 
     public Aha() {
-        // Generate unique identifier
         mId = UUID.randomUUID();
         mDate = new Date();
     }
 
-    public Aha(JSONObject json) throws JSONException {
-        mId = UUID.fromString(json.getString(JSON_ID));
-        mTitle = json.getString(JSON_TITLE);
-        mDate = new Date(json.getLong(JSON_DATE));
-        mSolved = json.getBoolean(JSON_SOLVED);
-    }
-
-    public JSONObject toJSON() throws JSONException {
-        JSONObject json = new JSONObject();
-        json.put(JSON_ID, mId.toString());
-        json.put(JSON_TITLE, mTitle);
-        json.put(JSON_SOLVED, mSolved);
-        json.put(JSON_DATE, mDate.getTime());
-        return json;
+    public Aha(UUID mId, String mTitle, Date mDate, boolean mUseful) {
+        this.mId = mId;
+        this.mTitle = mTitle;
+        this.mDate = mDate;
+        this.mUseful = mUseful;
     }
 
     public String getTitle() {
@@ -56,12 +37,12 @@ public class Aha {
         mDate = date;
     }
 
-    public boolean isSolved() {
-        return mSolved;
+    public boolean isUseful() {
+        return mUseful;
     }
 
-    public void setSolved(boolean solved) {
-        mSolved = solved;
+    public void setUseful(boolean useful) {
+        mUseful = useful;
     }
 
     public UUID getId() {

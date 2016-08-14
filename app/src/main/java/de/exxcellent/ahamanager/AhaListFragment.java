@@ -4,9 +4,9 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ListFragment;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AbsListView.MultiChoiceModeListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
@@ -25,39 +26,34 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class AhaListFragment extends ListFragment {
     private static final String TAG = "AhaListFragment";
-    private ArrayList<Aha> mAhas;
-    private boolean mSubtitleVisible;
-    private Button createCrimeButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        getActivity().setTitle(R.string.crimes_title);
-        mAhas = AhaLab.get(getActivity()).getCrimes();
+        getActivity().setTitle(R.string.aha_title);
+        List<Aha> mAhas = AhaLab.get(getActivity()).getAhas();
 
-        CrimeAdapter adapter = new CrimeAdapter(mAhas);
-        setListAdapter(adapter);
+        setListAdapter(new AhaAdapter(mAhas));
 
         setRetainInstance(true);
-        mSubtitleVisible = false;
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_crime_list, container, false);
-        createCrimeButton = (Button) v.findViewById(R.id.fragment_crime_create);
-        createCrimeButton.setOnClickListener(new OnClickListener() {
+        View v = inflater.inflate(R.layout.fragment_aha_list, container, false);
+        Button createAhaButton = (Button) v.findViewById(R.id.fragment_crime_create);
+        createAhaButton.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v) {
-                showCreateCrime();
+            public void onClick(View ahaButton) {
+                showCreateAha();
             }
         });
 
@@ -68,7 +64,7 @@ public class AhaListFragment extends ListFragment {
             registerForContextMenu(listView);
         } else {
             // Use contextual action bar on Honeycomb and higher
-            listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+            listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
             listView.setMultiChoiceModeListener(new MultiChoiceModeListener() {
 
                 @Override
@@ -83,7 +79,7 @@ public class AhaListFragment extends ListFragment {
                 @Override
                 public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                     MenuInflater inflater = mode.getMenuInflater();
-                    inflater.inflate(R.menu.crime_list_item_context, menu);
+                    inflater.inflate(R.menu.aha_list_item_context, menu);
                     return true;
                 }
 
@@ -91,7 +87,7 @@ public class AhaListFragment extends ListFragment {
                 public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                     switch (item.getItemId()) {
                         case R.id.menu_item_delete_crime:
-                            CrimeAdapter adapter = (CrimeAdapter) getListAdapter();
+                            AhaAdapter adapter = (AhaAdapter) getListAdapter();
                             AhaLab ahaLab = AhaLab.get(getActivity());
                             for (int i = adapter.getCount() - 1; i >= 0; i--) {
                                 if (getListView().isItemChecked(i)) {
@@ -120,12 +116,9 @@ public class AhaListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        Aha c = ((CrimeAdapter) getListAdapter()).getItem(position);
-        Log.d(TAG, c.getTitle() + " was clicked");
-
-        // Start AhaPagerActivity
+        Aha aha = ((AhaAdapter) getListAdapter()).getItem(position);
         Intent i = new Intent(getActivity(), AhaPagerActivity.class);
-        i.putExtra(AhaFragment.EXTRA_CRIME_ID, c.getId());
+        i.putExtra(AhaFragment.EXTRA_AHA_ID, aha.getId());
         startActivity(i);
     }
 
@@ -133,7 +126,7 @@ public class AhaListFragment extends ListFragment {
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
         int position = info.position;
-        CrimeAdapter adapter = (CrimeAdapter) getListAdapter();
+        AhaAdapter adapter = (AhaAdapter) getListAdapter();
         Aha aha = adapter.getItem(position);
 
         switch (item.getItemId()) {
@@ -151,13 +144,13 @@ public class AhaListFragment extends ListFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((CrimeAdapter) getListAdapter()).notifyDataSetChanged();
+        ((AhaAdapter) getListAdapter()).notifyDataSetChanged();
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_crime_list, menu);
+        inflater.inflate(R.menu.fragment_aha_list, menu);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -165,7 +158,7 @@ public class AhaListFragment extends ListFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_new_crime:
-                showCreateCrime();
+                showCreateAha();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -175,41 +168,42 @@ public class AhaListFragment extends ListFragment {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenuInfo menuInfo) {
-        getActivity().getMenuInflater().inflate(R.menu.crime_list_item_context, menu);
+        getActivity().getMenuInflater().inflate(R.menu.aha_list_item_context, menu);
     }
 
-    private void showCreateCrime() {
+    private void showCreateAha() {
         Aha aha = new Aha();
         AhaLab.get(getActivity()).addCrime(aha);
         Intent i = new Intent(getActivity(), AhaPagerActivity.class);
-        i.putExtra(AhaFragment.EXTRA_CRIME_ID, aha.getId());
+        i.putExtra(AhaFragment.EXTRA_AHA_ID, aha.getId());
         startActivityForResult(i, 0);
     }
 
-    private class CrimeAdapter extends ArrayAdapter<Aha> {
-        public CrimeAdapter(ArrayList<Aha> ahas) {
+    private class AhaAdapter extends ArrayAdapter<Aha> {
+        public AhaAdapter(List<Aha> ahas) {
             super(getActivity(), 0, ahas);
         }
 
+        @NonNull
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (convertView == null) {
                 convertView = getActivity().getLayoutInflater()
-                        .inflate(R.layout.list_item_crime, parent, false);
+                        .inflate(R.layout.list_item_aha, parent, false);
             }
 
             // Configure for this crime
-            Aha c = getItem(position);
+            Aha aha = getItem(position);
 
             TextView titleTextView = (TextView) convertView.findViewById(R.id.crime_list_item_titleTextView);
-            titleTextView.setText(c.getTitle());
+            titleTextView.setText(aha.getTitle());
 
             TextView dateTextView = (TextView) convertView.findViewById(R.id.crime_list_item_dateTextView);
-            CharSequence cs = DateFormat.format("EEEE, MMM dd, yyyy", c.getDate());
+            CharSequence cs = DateFormat.format("EEEE, MMM dd, yyyy", aha.getDate());
             dateTextView.setText(cs);
 
-            CheckBox solvedCheckedBox = (CheckBox) convertView.findViewById(R.id.crime_list_item_solvedCheckBox);
-            solvedCheckedBox.setChecked(c.isSolved());
+            CheckBox solvedCheckedBox = (CheckBox) convertView.findViewById(R.id.aha_list_item_usefulCheckBox);
+            solvedCheckedBox.setChecked(aha.isUseful());
 
             return convertView;
         }

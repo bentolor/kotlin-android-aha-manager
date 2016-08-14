@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class AhaFragment extends Fragment {
-    public static final String EXTRA_CRIME_ID = "com.bignerdranch.android.criminalintent.crime_id";
+    public static final String EXTRA_AHA_ID = "de.exxcellent.ahamoment.aha_id";
     private static final String DIALOG_DATE = "date";
     private static final String DIALOG_TIME = "time";
     private static final int REQUEST_DATE = 0;
@@ -39,9 +39,9 @@ public class AhaFragment extends Fragment {
     private Button mTimeButton;
     private CheckBox mSolvedBox;
 
-    public static AhaFragment newInstance(UUID crimeId) {
+    public static AhaFragment newInstance(UUID ahaId) {
         Bundle args = new Bundle();
-        args.putSerializable(EXTRA_CRIME_ID, crimeId);
+        args.putSerializable(EXTRA_AHA_ID, ahaId);
 
         AhaFragment fragment = new AhaFragment();
         fragment.setArguments(args);
@@ -52,9 +52,9 @@ public class AhaFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UUID crimeId = (UUID) getArguments().getSerializable(EXTRA_CRIME_ID);
+        UUID ahaID = (UUID) getArguments().getSerializable(EXTRA_AHA_ID);
 
-        mAha = AhaLab.get(getActivity()).getCrime(crimeId);
+        mAha = AhaLab.get(getActivity()).getAha(ahaID);
 
         setHasOptionsMenu(true);
     }
@@ -63,15 +63,13 @@ public class AhaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_crime, container, false);
+        View v = inflater.inflate(R.layout.fragment_aha, container, false);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            if (NavUtils.getParentActivityName(getActivity()) != null) {
-                getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-            }
+        if (NavUtils.getParentActivityName(getActivity()) != null) {
+            getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        mTitleField = (EditText) v.findViewById(R.id.crime_title);
+        mTitleField = (EditText) v.findViewById(R.id.aha_title);
         mTitleField.setText(mAha.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
 
@@ -92,11 +90,11 @@ public class AhaFragment extends Fragment {
             }
         });
 
-        mDateButton = (Button) v.findViewById(R.id.crime_date);
+        mDateButton = (Button) v.findViewById(R.id.aha_date);
         mDateButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v) {
+            public void onClick(View dateButton) {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 DatePickerFragment dialog = DatePickerFragment.newInstance(mAha.getDate());
                 dialog.setTargetFragment(AhaFragment.this, REQUEST_DATE);
@@ -104,11 +102,11 @@ public class AhaFragment extends Fragment {
             }
         });
 
-        mTimeButton = (Button) v.findViewById(R.id.crime_time);
+        mTimeButton = (Button) v.findViewById(R.id.aha_time);
         mTimeButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            public void onClick(View v) {
+            public void onClick(View timeButton) {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 TimePickerFragment dialog = TimePickerFragment.newInstance(mAha.getDate());
                 dialog.setTargetFragment(AhaFragment.this, REQUEST_TIME);
@@ -118,11 +116,11 @@ public class AhaFragment extends Fragment {
 
         updateDate();
 
-        mSolvedBox = (CheckBox) v.findViewById(R.id.crime_solved);
-        mSolvedBox.setChecked(mAha.isSolved());
+        mSolvedBox = (CheckBox) v.findViewById(R.id.aha_useful);
+        mSolvedBox.setChecked(mAha.isUseful());
         mSolvedBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mAha.setSolved(isChecked);
+                mAha.setUseful(isChecked);
             }
         });
 
@@ -154,7 +152,7 @@ public class AhaFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_crime, menu);
+        inflater.inflate(R.menu.fragment_aha, menu);
     }
 
     @Override

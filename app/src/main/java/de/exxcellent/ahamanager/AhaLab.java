@@ -11,12 +11,12 @@ public class AhaLab {
     private static final String FILENAME = "ahas.json";
     private static AhaLab sAhaLab;
     private ArrayList<Aha> mAhas;
-    private AhaIntentJSONSerializer mSerializer;
+    private AhaJSONSerializer mSerializer;
     private Context mAppContext;
 
     private AhaLab(Context appContext) {
         mAppContext = appContext;
-        mSerializer = new AhaIntentJSONSerializer(mAppContext, FILENAME);
+        mSerializer = new AhaJSONSerializer(mAppContext, FILENAME);
 
         try {
             mAhas = mSerializer.loadCrimes();
@@ -25,7 +25,7 @@ public class AhaLab {
             Log.e(TAG, "Error loading crimes: ", e);
         }
 
-//		CreateCrimes(100);
+        createAhas(7);
     }
 
     public static AhaLab get(Context c) {
@@ -35,11 +35,11 @@ public class AhaLab {
         return sAhaLab;
     }
 
-    public ArrayList<Aha> getCrimes() {
+    public ArrayList<Aha> getAhas() {
         return mAhas;
     }
 
-    public Aha getCrime(UUID id) {
+    public Aha getAha(UUID id) {
         for (Aha c : mAhas) {
             if (c.getId().equals(id))
                 return c;
@@ -57,7 +57,7 @@ public class AhaLab {
 
     public boolean saveCrimes() {
         try {
-            mSerializer.saveCrimes(mAhas);
+            mSerializer.saveAhas(mAhas);
             Log.d(TAG, "crimes saved to file");
             return true;
         } catch (Exception e) {
@@ -66,12 +66,12 @@ public class AhaLab {
         }
     }
 
-    private void CreateCrimes(int count) {
-        for (int i = 0; i < 100; i++) {
-            Aha c = new Aha();
-            c.setTitle("Aha #" + i);
-            c.setSolved(i % 2 == 0); // Alternate
-            mAhas.add(c);
+    private void createAhas(int count) {
+        for (int i = 0; i < count; i++) {
+            Aha aha = new Aha();
+            aha.setTitle("Aha #" + i);
+            aha.setUseful((i % 2) == 0); // Alternate
+            mAhas.add(aha);
         }
     }
 }

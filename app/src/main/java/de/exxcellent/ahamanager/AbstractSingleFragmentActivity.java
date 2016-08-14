@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
 public abstract class AbstractSingleFragmentActivity extends FragmentActivity {
+
     protected abstract Fragment createFragment();
 
     @Override
@@ -13,12 +14,12 @@ public abstract class AbstractSingleFragmentActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
+        FragmentManager fragmanager = getSupportFragmentManager();
+        Fragment fragment = fragmanager.findFragmentById(R.id.fragmentContainer);
 
         if (fragment == null) {
             fragment = createFragment();
-            fm.beginTransaction()
+            fragmanager.beginTransaction()
                     .add(R.id.fragmentContainer, fragment)
                     .commit();
         }

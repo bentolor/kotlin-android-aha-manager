@@ -29,6 +29,7 @@
     <inspection_tool class="AmbiguousMethodCall" enabled="true" level="INFO" enabled_by_default="true" />
     <inspection_tool class="AndroidLintProguardSplitConfig" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintResourceAsColor" enabled="false" level="ERROR" enabled_by_default="false" />
+    <inspection_tool class="AndroidLintRtlHardcoded" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintSparseArray" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="AndroidLintStyleCycle" enabled="false" level="ERROR" enabled_by_default="false" />
     <inspection_tool class="AndroidLintUseCheckPermission" enabled="false" level="WARNING" enabled_by_default="true" />
@@ -41,7 +42,7 @@
     <inspection_tool class="AnonymousClassComplexity" enabled="false" level="WARNING" enabled_by_default="false">
       <option name="m_limit" value="5" />
     </inspection_tool>
-    <inspection_tool class="AnonymousClassMethodCount" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+    <inspection_tool class="AnonymousClassMethodCount" enabled="false" level="WEAK WARNING" enabled_by_default="false">
       <option name="m_limit" value="3" />
     </inspection_tool>
     <inspection_tool class="AnonymousClassVariableHidesContainingMethodVariable" enabled="true" level="WARNING" enabled_by_default="true" />
@@ -829,7 +830,7 @@
     <inspection_tool class="JavaAccessorMethodCalledAsEmptyParen" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JavaAccessorMethodOverridenAsEmptyParen" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="JavaDoc" enabled="true" level="WARNING" enabled_by_default="false">
-      <scope name="Production" level="WEAK WARNING" enabled="true">
+      <scope name="Production" level="WEAK WARNING" enabled="false">
         <option name="TOP_LEVEL_CLASS_OPTIONS">
           <value>
             <option name="ACCESS_JAVADOC_REQUIRED_FOR" value="public" />
@@ -1438,6 +1439,7 @@
     <inspection_tool class="ThreadStartInConstruction" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="ThreadStopSuspendResume" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="ThreadWithDefaultRunMethod" enabled="true" level="ERROR" enabled_by_default="true" />
+    <inspection_tool class="ThrowFromFinallyBlock" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="ThrowableInFormattedMessage" enabled="false" level="INFO" enabled_by_default="false" />
     <inspection_tool class="ThrowablePrintStackTrace" enabled="true" level="ERROR" enabled_by_default="true" />
     <inspection_tool class="ThrowablePrintedToSystemOut" enabled="true" level="ERROR" enabled_by_default="true" />
@@ -1528,7 +1530,7 @@
       <option name="ignoreReferences" value="true" />
       <option name="ignoreComplexLiterals" value="true" />
     </inspection_tool>
-    <inspection_tool class="UnqualifiedStaticUsage" enabled="true" level="INFO" enabled_by_default="true">
+    <inspection_tool class="UnqualifiedStaticUsage" enabled="false" level="INFO" enabled_by_default="false">
       <option name="m_ignoreStaticFieldAccesses" value="false" />
       <option name="m_ignoreStaticMethodCalls" value="false" />
       <option name="m_ignoreStaticAccessFromStaticContext" value="true" />

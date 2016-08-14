@@ -21,7 +21,7 @@ public class AhaPagerActivity extends FragmentActivity {
         mViewPager.setId(R.id.viewPager);
         setContentView(mViewPager);
 
-        mAhas = AhaLab.get(this).getCrimes();
+        mAhas = AhaLab.get(this).getAhas();
 
         FragmentManager fm = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
@@ -57,7 +57,7 @@ public class AhaPagerActivity extends FragmentActivity {
         });
 
         UUID crimeId = (UUID) getIntent()
-                .getSerializableExtra(AhaFragment.EXTRA_CRIME_ID);
+                .getSerializableExtra(AhaFragment.EXTRA_AHA_ID);
 
         for (int i = 0; i < mAhas.size(); i++) {
             if (mAhas.get(i).getId().equals(crimeId)) {

@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.DatePicker;
@@ -16,7 +17,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class DatePickerFragment extends DialogFragment {
-    public static final String EXTRA_DATE = "com.bignerdranch.android.criminalintent.date";
+    public static final String EXTRA_DATE = "de.exxcellent.ahamoment.date";
 
     private Date mDate;
 
@@ -29,6 +30,7 @@ public class DatePickerFragment extends DialogFragment {
         return fragment;
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         mDate = (Date) getArguments().getSerializable(EXTRA_DATE);
@@ -48,15 +50,16 @@ public class DatePickerFragment extends DialogFragment {
         datePicker.init(year, month, day, new OnDateChangedListener() {
 
             @Override
-            public void onDateChanged(DatePicker view, int year, int monthOfYear,
+            public void onDateChanged(DatePicker view, int selectedYear, int monthOfYear,
                                       int dayOfMonth) {
 
-                final Calendar cal = Calendar.getInstance();
-                cal.setTime(mDate);
-                int hour = cal.get(Calendar.HOUR_OF_DAY);
-                int minute = cal.get(Calendar.MINUTE);
+                final Calendar calendar = Calendar.getInstance();
+                calendar.setTime(mDate);
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
                 // Translate picked date to Date
-                mDate = new GregorianCalendar(year, monthOfYear, dayOfMonth, hour, minute).getTime();
+                mDate = new GregorianCalendar(selectedYear, monthOfYear, dayOfMonth, hour, minute)
+                        .getTime();
 
                 // Update argument to preserve selected value on rotation
                 getArguments().putSerializable(EXTRA_DATE, mDate);
@@ -67,7 +70,6 @@ public class DatePickerFragment extends DialogFragment {
                 .setView(v)
                 .setTitle(R.string.date_picker_title)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         sendResult(Activity.RESULT_OK);
@@ -77,8 +79,9 @@ public class DatePickerFragment extends DialogFragment {
     }
 
     private void sendResult(int resultCode) {
-        if (getTargetFragment() == null)
+        if (getTargetFragment() == null) {
             return;
+        }
 
         Intent i = new Intent();
         i.putExtra(EXTRA_DATE, mDate);
