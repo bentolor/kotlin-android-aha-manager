@@ -29,8 +29,6 @@ import android.widget.TextView;
 import java.util.List;
 
 public class AhaListFragment extends ListFragment {
-    private static final String TAG = "AhaListFragment";
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,0 +1,15 @@
+package de.bentolor.katamanager
+
+import java.util.Date
+import java.util.UUID
+
+data class Aha(
+    val id: UUID = UUID.randomUUID(),
+    var title: String = "",
+    var date: Date = Date(),
+    var isUseful: Boolean = false
+) {
+    override fun toString(): String {
+        return title
+    }
+}

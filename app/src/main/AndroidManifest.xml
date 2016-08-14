@@ -6,17 +6,17 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name="de.bentolor.ahamanager.AhaListActivityAbstract">
+        <activity android:name="de.bentolor.katamanager.AhaListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="de.bentolor.ahamanager.AhaPagerActivity"
+            android:name="de.bentolor.katamanager.AhaPagerActivity"
             android:label="@string/app_name" >
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.bentolor.ahamanager.AhaListActivityAbstract" />
+                android:value="de.bentolor.katamanager.AhaListActivity" />
         </activity>
     </application>
 
