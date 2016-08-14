@@ -1,4 +1,4 @@
-package com.bignerdranch.android.criminalintent;
+package de.exxcellent.ahamanager;
 
 import org.json.JSONException;
 import org.json.JSONObject;

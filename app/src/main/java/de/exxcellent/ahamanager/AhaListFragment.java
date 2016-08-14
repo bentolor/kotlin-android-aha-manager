@@ -1,4 +1,4 @@
-package com.bignerdranch.android.criminalintent;
+package de.exxcellent.ahamanager;
 
 import android.annotation.TargetApi;
 import android.content.Intent;

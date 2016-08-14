@@ -1,4 +1,4 @@
-package com.bignerdranch.android.criminalintent;
+package de.exxcellent.ahamanager;
 
 import android.support.v4.app.Fragment;
 
