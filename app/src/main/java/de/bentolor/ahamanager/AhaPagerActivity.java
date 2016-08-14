@@ -1,4 +1,4 @@
-package de.exxcellent.ahamanager;
+package de.bentolor.ahamanager;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -1,4 +1,4 @@
-package de.exxcellent.ahamanager;
+package de.bentolor.ahamanager;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("de.exxcellent.ahamanager", appContext.getPackageName());
+        assertEquals("de.bentolor.ahamanager", appContext.getPackageName());
     }
 }

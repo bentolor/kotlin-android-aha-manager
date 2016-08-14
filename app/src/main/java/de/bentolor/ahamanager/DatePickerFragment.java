@@ -1,4 +1,4 @@
-package de.exxcellent.ahamanager;
+package de.bentolor.ahamanager;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class DatePickerFragment extends DialogFragment {
-    public static final String EXTRA_DATE = "de.exxcellent.ahamoment.date";
+    public static final String EXTRA_DATE = "de.bentolor.ahamoment.date";
 
     private Date mDate;
 

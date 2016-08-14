@@ -1,4 +1,4 @@
-package de.exxcellent.ahamanager;
+package de.bentolor.ahamanager;
 
 import android.annotation.TargetApi;
 import android.content.Intent;

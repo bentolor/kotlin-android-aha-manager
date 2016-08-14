@@ -1,4 +1,4 @@
-package de.exxcellent.ahamanager;
+package de.bentolor.ahamanager;
 
 import android.content.Context;
 import android.util.Log;

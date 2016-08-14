@@ -1,9 +1,8 @@
-package de.exxcellent.ahamanager;
+package de.bentolor.ahamanager;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -27,7 +26,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class AhaFragment extends Fragment {
-    public static final String EXTRA_AHA_ID = "de.exxcellent.ahamoment.aha_id";
+    public static final String EXTRA_AHA_ID = "de.bentolor.ahamoment.aha_id";
     private static final String DIALOG_DATE = "date";
     private static final String DIALOG_TIME = "time";
     private static final int REQUEST_DATE = 0;
