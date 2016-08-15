@@ -7,7 +7,7 @@
     <string name="aha_details_label">Details</string>
     <string name="aha_useful_label">Nützlich?</string>
     <string name="aha_title">Aha!</string>
-    <string name="date_picker_title">Tag der Erleuchtung:</string>
+    <string name="date_picker_title">Zeitpunkt der Erleuchtung</string>
     <string name="new_aha">Neues Aha!</string>
     <string name="delete_aha">Löschen</string>
     <string name="empty_list">Um loszulegen, erstelle einen neuen Aha!-Moment.</string>
