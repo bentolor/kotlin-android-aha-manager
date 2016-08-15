@@ -16,7 +16,7 @@ import java.util.*
 
 class AhaFragment : Fragment() {
 
-    private var mAha: Aha = Aha()
+    private lateinit var mAha: Aha
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
