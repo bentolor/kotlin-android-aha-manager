@@ -6,8 +6,8 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
+import android.widget.DatePicker
 import de.bentolor.ahamanager.R
-import kotlinx.android.synthetic.main.dialog_date.*
 import java.util.*
 
 class DatePickerFragment : DialogFragment() {
@@ -26,7 +26,8 @@ class DatePickerFragment : DialogFragment() {
 
         val view = activity.layoutInflater.inflate(R.layout.dialog_date, null)
 
-        dialog_date_datePicker.init(year, month, day) { view, y, m, dOM ->
+        val datePicker = view.findViewById(R.id.dialog_date_datePicker) as DatePicker
+        datePicker.init(year, month, day) { view, y, m, dOM ->
             val calendar = Calendar.getInstance()
             calendar.time = mDate
             val hour = calendar.get(Calendar.HOUR_OF_DAY)
