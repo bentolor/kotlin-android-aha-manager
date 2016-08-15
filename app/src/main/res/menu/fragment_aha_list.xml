@@ -4,6 +4,6 @@
         android:id="@+id/menu_item_new_crime"
         android:icon="@android:drawable/ic_menu_add"
         android:showAsAction="ifRoom|withText"
-        android:title="@string/new_aha" />
+        android:title="@string/new_aha"/>
 
 </menu>

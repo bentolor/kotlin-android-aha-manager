@@ -6,25 +6,11 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ListFragment
 import android.text.format.DateFormat
-import android.view.ActionMode
-import android.view.ContextMenu
+import android.view.*
 import android.view.ContextMenu.ContextMenuInfo
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.View.OnClickListener
-import android.view.ViewGroup
-import android.widget.AbsListView
+import android.widget.*
 import android.widget.AbsListView.MultiChoiceModeListener
 import android.widget.AdapterView.AdapterContextMenuInfo
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.ListView
-import android.widget.TextView
-
 import de.bentolor.ahamanager.R
 
 class AhaListFragment : ListFragment() {

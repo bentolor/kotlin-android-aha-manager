@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background_activated">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_activated">
 
     <CheckBox
         android:id="@+id/aha_list_item_usefulCheckBox"
@@ -12,7 +12,7 @@
         android:enabled="false"
         android:focusable="false"
         android:gravity="center"
-        android:padding="4dp" />
+        android:padding="4dp"/>
 
     <TextView
         android:id="@+id/crime_list_item_titleTextView"
@@ -22,7 +22,7 @@
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:text="@string/aha_title"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/crime_list_item_dateTextView"
@@ -33,6 +33,6 @@
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
         android:paddingTop="4dp"
-        android:text="@string/aha_date_label" />
+        android:text="@string/aha_date_label"/>
 
 </RelativeLayout>

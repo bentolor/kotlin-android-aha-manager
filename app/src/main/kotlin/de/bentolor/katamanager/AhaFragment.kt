@@ -1,16 +1,13 @@
 package de.bentolor.katamanager
 
-import android.R.id
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.NavUtils
 import android.support.v4.app.NavUtils.getParentActivityName
 import android.support.v4.app.NavUtils.navigateUpFromSameTask
 import android.text.Editable
 import android.text.TextWatcher
-import android.text.format.DateFormat
 import android.text.format.DateFormat.format
 import android.view.*
 import de.bentolor.ahamanager.R

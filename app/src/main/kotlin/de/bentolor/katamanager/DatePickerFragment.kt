@@ -7,8 +7,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import de.bentolor.ahamanager.R
-import java.util.*
 import kotlinx.android.synthetic.main.dialog_date.*
+import java.util.*
 
 class DatePickerFragment : DialogFragment() {
 

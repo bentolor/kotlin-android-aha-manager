@@ -34,6 +34,24 @@ public class AhaJSONSerializer {
         mFileName = fileName;
     }
 
+    private static Aha fromJSON(JSONObject json) throws JSONException {
+        UUID id = UUID.fromString(json.getString(JSON_ID));
+        String title = json.getString(JSON_TITLE);
+        Date date = new Date(json.getLong(JSON_DATE));
+        boolean solved = json.getBoolean(JSON_USEFUL);
+
+        return new Aha(id, title, date, solved);
+    }
+
+    private static JSONObject toJSON(Aha aha) throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put(JSON_ID, aha.getId().toString());
+        json.put(JSON_TITLE, aha.getTitle());
+        json.put(JSON_USEFUL, aha.isUseful());
+        json.put(JSON_DATE, aha.getDate().getTime());
+        return json;
+    }
+
     public void saveAhas(List<Aha> ahas) throws JSONException, IOException {
         JSONArray array = new JSONArray();
         for (Aha aha : ahas) {
@@ -79,23 +97,5 @@ public class AhaJSONSerializer {
             }
         }
         return ahas;
-    }
-
-    private static Aha fromJSON(JSONObject json) throws JSONException {
-        UUID id = UUID.fromString(json.getString(JSON_ID));
-        String title = json.getString(JSON_TITLE);
-        Date date = new Date(json.getLong(JSON_DATE));
-        boolean solved = json.getBoolean(JSON_USEFUL);
-
-        return new Aha(id, title, date, solved);
-    }
-
-    private static JSONObject toJSON(Aha aha) throws JSONException {
-        JSONObject json = new JSONObject();
-        json.put(JSON_ID, aha.getId().toString());
-        json.put(JSON_TITLE, aha.getTitle());
-        json.put(JSON_USEFUL, aha.isUseful());
-        json.put(JSON_DATE, aha.getDate().getTime());
-        return json;
     }
 }

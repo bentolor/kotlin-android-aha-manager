@@ -3,19 +3,12 @@ package de.bentolor.katamanager
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
-import android.view.View
 import android.widget.TimePicker
-import android.widget.TimePicker.OnTimeChangedListener
-
-import java.util.Calendar
-import java.util.Date
-import java.util.GregorianCalendar
-
 import de.bentolor.ahamanager.R
+import java.util.*
 
 class TimePickerFragment : DialogFragment() {
 

@@ -4,6 +4,6 @@
         android:id="@+id/menu_item_delete_crime"
         android:icon="@android:drawable/ic_menu_delete"
         android:showAsAction="ifRoom|withText"
-        android:title="@string/delete_aha" />
+        android:title="@string/delete_aha"/>
 
 </menu>
