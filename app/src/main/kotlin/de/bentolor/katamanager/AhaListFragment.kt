@@ -33,14 +33,13 @@ class AhaListFragment : ListFragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         activity.setTitle(R.string.aha_title)
-        val mAhas = AhaLab.get(activity).ahas
+        val ahas = AhaLab[activity].ahas
 
-        listAdapter = AhaAdapter(mAhas!!)
+        listAdapter = AhaAdapter(ahas)
 
         retainInstance = true
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val v = inflater!!.inflate(R.layout.fragment_aha_list, container, false)
@@ -77,12 +76,12 @@ class AhaListFragment : ListFragment() {
                             val ahaLab = AhaLab.get(activity)
                             for (i in adapter.count - 1 downTo 0) {
                                 if (getListView().isItemChecked(i)) {
-                                    ahaLab.deleteCrime(adapter.getItem(i))
+                                    ahaLab.deleteAha(adapter.getItem(i))
                                 }
                             }
                             mode.finish()
                             adapter.notifyDataSetChanged()
-                            ahaLab.saveCrimes()
+                            ahaLab.saveAhas()
                             return true
                         }
                         else -> return false
@@ -115,9 +114,9 @@ class AhaListFragment : ListFragment() {
         when (item.itemId) {
             R.id.menu_item_delete_crime -> {
                 val ahaLab = AhaLab.get(activity)
-                ahaLab.deleteCrime(aha)
+                ahaLab.deleteAha(aha)
                 adapter.notifyDataSetChanged()
-                ahaLab.saveCrimes()
+                ahaLab.saveAhas()
                 return true
             }
         }
@@ -153,7 +152,7 @@ class AhaListFragment : ListFragment() {
 
     private fun showCreateAha() {
         val aha = Aha()
-        AhaLab.get(activity).addCrime(aha)
+        AhaLab.get(activity).addAha(aha)
         val i = Intent(activity, AhaPagerActivity::class.java)
         i.putExtra(AhaFragment.EXTRA_AHA_ID, aha.id)
         startActivityForResult(i, 0)

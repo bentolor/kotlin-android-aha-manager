@@ -3,7 +3,6 @@ package de.bentolor.katamanager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
-
 import de.bentolor.ahamanager.R
 
 abstract class AbstractSingleFragmentActivity : FragmentActivity() {

@@ -1,6 +1,5 @@
 package de.bentolor.ahamanager;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,10 +32,8 @@ public class AhaFragment extends Fragment {
     private static final int REQUEST_TIME = 1;
 
     private Aha mAha;
-    private EditText mTitleField;
     private Button mDateButton;
     private Button mTimeButton;
-    private CheckBox mSolvedBox;
 
     public static AhaFragment newInstance(UUID ahaId) {
         Bundle args = new Bundle();
@@ -58,7 +55,6 @@ public class AhaFragment extends Fragment {
         setHasOptionsMenu(true);
     }
 
-    @TargetApi(11)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,7 +64,7 @@ public class AhaFragment extends Fragment {
             getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        mTitleField = (EditText) v.findViewById(R.id.aha_title);
+        EditText mTitleField = (EditText) v.findViewById(R.id.aha_title);
         mTitleField.setText(mAha.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
 
@@ -78,14 +74,11 @@ public class AhaFragment extends Fragment {
             }
 
             @Override
-            public void beforeTextChanged(CharSequence c, int start, int count,
-                                          int after) {
-                // left blank
+            public void beforeTextChanged(CharSequence c, int start, int count, int after) {
             }
 
             @Override
             public void afterTextChanged(Editable c) {
-                // left blank
             }
         });
 
@@ -115,9 +108,9 @@ public class AhaFragment extends Fragment {
 
         updateDate();
 
-        mSolvedBox = (CheckBox) v.findViewById(R.id.aha_useful);
-        mSolvedBox.setChecked(mAha.isUseful());
-        mSolvedBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+        CheckBox usefulBox = (CheckBox) v.findViewById(R.id.aha_useful);
+        usefulBox.setChecked(mAha.isUseful());
+        usefulBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mAha.setUseful(isChecked);
             }
@@ -164,8 +157,8 @@ public class AhaFragment extends Fragment {
                 return true;
             case R.id.menu_item_delete_crime:
                 AhaLab ahaLab = AhaLab.get(getActivity());
-                ahaLab.deleteCrime(mAha);
-                ahaLab.saveCrimes();
+                ahaLab.deleteAha(mAha);
+                ahaLab.saveAhas();
                 getActivity().finish();
                 return true;
             default:
@@ -176,6 +169,6 @@ public class AhaFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        AhaLab.get(getActivity()).saveCrimes();
+        AhaLab.get(getActivity()).saveAhas();
     }
 }

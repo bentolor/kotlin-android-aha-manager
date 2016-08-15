@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class AhaPagerActivity extends FragmentActivity {
-    private ViewPager mViewPager;
+
     private ArrayList<Aha> mAhas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewPager = new ViewPager(this);
+        ViewPager mViewPager = new ViewPager(this);
         mViewPager.setId(R.id.viewPager);
         setContentView(mViewPager);
 
@@ -56,11 +56,11 @@ public class AhaPagerActivity extends FragmentActivity {
             }
         });
 
-        UUID crimeId = (UUID) getIntent()
+        UUID ahaId = (UUID) getIntent()
                 .getSerializableExtra(AhaFragment.EXTRA_AHA_ID);
 
         for (int i = 0; i < mAhas.size(); i++) {
-            if (mAhas.get(i).getId().equals(crimeId)) {
+            if (mAhas.get(i).getId().equals(ahaId)) {
                 mViewPager.setCurrentItem(i);
                 break;
             }

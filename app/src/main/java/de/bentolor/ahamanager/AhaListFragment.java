@@ -41,7 +41,6 @@ public class AhaListFragment extends ListFragment {
         setRetainInstance(true);
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -89,12 +88,12 @@ public class AhaListFragment extends ListFragment {
                             AhaLab ahaLab = AhaLab.get(getActivity());
                             for (int i = adapter.getCount() - 1; i >= 0; i--) {
                                 if (getListView().isItemChecked(i)) {
-                                    ahaLab.deleteCrime(adapter.getItem(i));
+                                    ahaLab.deleteAha(adapter.getItem(i));
                                 }
                             }
                             mode.finish();
                             adapter.notifyDataSetChanged();
-                            ahaLab.saveCrimes();
+                            ahaLab.saveAhas();
                             return true;
                         default:
                             return false;
@@ -130,9 +129,9 @@ public class AhaListFragment extends ListFragment {
         switch (item.getItemId()) {
             case R.id.menu_item_delete_crime:
                 AhaLab ahaLab = AhaLab.get(getActivity());
-                ahaLab.deleteCrime(aha);
+                ahaLab.deleteAha(aha);
                 adapter.notifyDataSetChanged();
-                ahaLab.saveCrimes();
+                ahaLab.saveAhas();
                 return true;
         }
 
@@ -171,7 +170,7 @@ public class AhaListFragment extends ListFragment {
 
     private void showCreateAha() {
         Aha aha = new Aha();
-        AhaLab.get(getActivity()).addCrime(aha);
+        AhaLab.get(getActivity()).addAha(aha);
         Intent i = new Intent(getActivity(), AhaPagerActivity.class);
         i.putExtra(AhaFragment.EXTRA_AHA_ID, aha.getId());
         startActivityForResult(i, 0);

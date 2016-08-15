@@ -12,17 +12,15 @@ public class AhaLab {
     private static AhaLab sAhaLab;
     private ArrayList<Aha> mAhas;
     private AhaJSONSerializer mSerializer;
-    private Context mAppContext;
 
     private AhaLab(Context appContext) {
-        mAppContext = appContext;
-        mSerializer = new AhaJSONSerializer(mAppContext, FILENAME);
+        mSerializer = new AhaJSONSerializer(appContext, FILENAME);
 
         try {
             mAhas = mSerializer.loadCrimes();
         } catch (Exception e) {
             mAhas = new ArrayList<Aha>();
-            Log.e(TAG, "Error loading crimes: ", e);
+            Log.e(TAG, "Error loading Ahas: ", e);
         }
 
         createAhas(7);
@@ -47,21 +45,21 @@ public class AhaLab {
         return null;
     }
 
-    public void addCrime(Aha c) {
+    public void addAha(Aha c) {
         mAhas.add(c);
     }
 
-    public void deleteCrime(Aha c) {
+    public void deleteAha(Aha c) {
         mAhas.remove(c);
     }
 
-    public boolean saveCrimes() {
+    public boolean saveAhas() {
         try {
             mSerializer.saveAhas(mAhas);
-            Log.d(TAG, "crimes saved to file");
+            Log.d(TAG, "Ahas saved to file");
             return true;
         } catch (Exception e) {
-            Log.e(TAG, "Error saving crimes: ", e);
+            Log.e(TAG, "Error saving Ahas: ", e);
             return false;
         }
     }

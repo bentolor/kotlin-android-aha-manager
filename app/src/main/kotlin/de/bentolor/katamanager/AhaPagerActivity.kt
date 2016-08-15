@@ -3,60 +3,44 @@ package de.bentolor.katamanager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
-
-import java.util.ArrayList
-import java.util.UUID
-
 import de.bentolor.ahamanager.R
+import java.util.*
 
 class AhaPagerActivity : FragmentActivity() {
-    private var mViewPager: ViewPager? = null
-    private var mAhas: ArrayList<Aha>? = null
+
+    private var mAhas: MutableList<Aha> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewPager = ViewPager(this)
-        mViewPager!!.id = R.id.viewPager
-        setContentView(mViewPager)
 
-        mAhas = AhaLab.get(this).ahas
+        mAhas = AhaLab[this].ahas
 
-        val fm = supportFragmentManager
-        mViewPager!!.adapter = object : FragmentStatePagerAdapter(fm) {
-            override fun getCount(): Int {
-                return mAhas!!.size
+        with(ViewPager(this)) {
+            id = R.id.viewPager
+            setContentView(this)
+
+            adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
+                override fun getCount(): Int = mAhas.size
+                override fun getItem(p: Int): Fragment = AhaFragment.newInstance(mAhas[p].id)
             }
 
-            override fun getItem(p: Int): Fragment {
-                val aha = mAhas!![p]
-                return AhaFragment.newInstance(aha.id)
-            }
-        }
+            setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageSelected(pos: Int) {
+                    title = mAhas[pos].title
+                }
 
-        mViewPager!!.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {
+                }
 
-            override fun onPageSelected(pos: Int) {
-                val aha = mAhas!![pos]
-                title = aha.title
-            }
+                override fun onPageScrollStateChanged(arg0: Int) {
+                }
+            })
 
-            override fun onPageScrolled(arg0: Int, arg1: Float, arg2: Int) {
-            }
+            val ahaId = intent.getSerializableExtra(AhaFragment.EXTRA_AHA_ID) as UUID
 
-            override fun onPageScrollStateChanged(arg0: Int) {
-            }
-        })
-
-        val crimeId = intent.getSerializableExtra(AhaFragment.EXTRA_AHA_ID) as UUID
-
-        for (i in mAhas!!.indices) {
-            if (mAhas!![i].id == crimeId) {
-                mViewPager!!.currentItem = i
-                break
-            }
+            currentItem = mAhas.indexOfFirst { it.id == ahaId }
         }
     }
 }
