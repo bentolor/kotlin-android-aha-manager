@@ -10,7 +10,7 @@ import java.util.*
 
 class AhaPagerActivity : FragmentActivity() {
 
-    private var mAhas: MutableList<Aha> = mutableListOf()
+    private lateinit var mAhas: MutableList<Aha>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
