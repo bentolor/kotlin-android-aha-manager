@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/demo.android.aha-manager.iml" filepath="$PROJECT_DIR$/demo.android.aha-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo.android.aha-manager.git.iml" filepath="$PROJECT_DIR$/demo.android.aha-manager.git.iml" />
     </modules>
   </component>
 </project>
