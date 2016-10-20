@@ -9,7 +9,7 @@ import android.widget.Toast
  * Extension properties: Direct access to all views in a [ViewGroup].
  */
 val ViewGroup.views: List<View>
-    get() = (0..getChildCount() - 1).map { getChildAt(it) }
+    get() = (0..childCount - 1).map { getChildAt(it) }
 
 /**
  * Return a flat map of all contained views (recursivly) in a [ViewGroup].
