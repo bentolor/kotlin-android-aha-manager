@@ -14,6 +14,7 @@ class TimePickerFragment : DialogFragment() {
 
     private var mDate: Date? = null
 
+    @Suppress("DEPRECATION")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         mDate = arguments.getSerializable(EXTRA_TIME) as Date
 
@@ -31,11 +32,11 @@ class TimePickerFragment : DialogFragment() {
         timePicker.currentMinute = minute
 
         timePicker.setOnTimeChangedListener { view, hourOfDay, selectedMinute ->
-            val cal = Calendar.getInstance()
-            cal.time = mDate
-            val year = cal.get(Calendar.YEAR)
-            val monthOfYear = cal.get(Calendar.MONTH)
-            val dayOfMonth = cal.get(Calendar.DAY_OF_MONTH)
+            val calendar = Calendar.getInstance()
+            calendar.time = mDate
+            val year = calendar.get(Calendar.YEAR)
+            val monthOfYear = calendar.get(Calendar.MONTH)
+            val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
 
             mDate = GregorianCalendar(year, monthOfYear, dayOfMonth, hourOfDay, selectedMinute).time
 
@@ -43,7 +44,8 @@ class TimePickerFragment : DialogFragment() {
             arguments.putSerializable(EXTRA_TIME, mDate)
         }
 
-        return AlertDialog.Builder(activity).setView(v).setTitle(R.string.date_picker_title).setPositiveButton(android.R.string.ok) { dialog, which -> sendResult(Activity.RESULT_OK) }.create()
+        return AlertDialog.Builder(activity).setView(v).setTitle(R.string.date_picker_title)
+                .setPositiveButton(android.R.string.ok) { dialog, which -> sendResult(Activity.RESULT_OK) }.create()
     }
 
     private fun sendResult(resultCode: Int) {

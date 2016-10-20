@@ -50,8 +50,8 @@ class AhaListFragment : ListFragment() {
                 }
 
                 override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
-                    val inflater = mode.menuInflater
-                    inflater.inflate(R.menu.aha_list_item_context, menu)
+                    val mInflater = mode.menuInflater
+                    mInflater.inflate(R.menu.aha_list_item_context, menu)
                     return true
                 }
 
@@ -147,25 +147,22 @@ class AhaListFragment : ListFragment() {
     private inner class AhaAdapter(ahas: List<Aha>) : ArrayAdapter<Aha>(activity, 0, ahas) {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-            var convertView = convertView
-            if (convertView == null) {
-                convertView = activity.layoutInflater.inflate(R.layout.list_item_aha, parent, false)
-            }
+            val view: View = convertView ?: activity.layoutInflater.inflate(R.layout.list_item_aha, parent, false)
 
             // Configure for this crime
             val aha = getItem(position)
 
-            val titleTextView = convertView!!.findViewById(R.id.crime_list_item_titleTextView) as TextView
+            val titleTextView = view.findViewById(R.id.crime_list_item_titleTextView) as TextView
             titleTextView.text = aha!!.title
 
-            val dateTextView = convertView.findViewById(R.id.crime_list_item_dateTextView) as TextView
+            val dateTextView = view.findViewById(R.id.crime_list_item_dateTextView) as TextView
             val cs = DateFormat.format("EEEE, MMM dd, yyyy", aha.date)
             dateTextView.text = cs
 
-            val solvedCheckedBox = convertView.findViewById(R.id.aha_list_item_usefulCheckBox) as CheckBox
+            val solvedCheckedBox = view.findViewById(R.id.aha_list_item_usefulCheckBox) as CheckBox
             solvedCheckedBox.isChecked = aha.isUseful
 
-            return convertView
+            return view
         }
     }
 

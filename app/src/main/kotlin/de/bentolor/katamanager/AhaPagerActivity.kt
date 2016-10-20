@@ -26,7 +26,7 @@ class AhaPagerActivity : FragmentActivity() {
                 override fun getItem(p: Int): Fragment = AhaFragment.newInstance(mAhas[p].id)
             }
 
-            setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
                 override fun onPageSelected(pos: Int) {
                     title = mAhas[pos].title
                 }
