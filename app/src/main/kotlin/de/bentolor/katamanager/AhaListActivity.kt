@@ -1,9 +1,7 @@
 package de.bentolor.katamanager
 
-import android.support.v4.app.Fragment
+import android.app.Activity
 
-class AhaListActivity : AbstractSingleFragmentActivity() {
-
-    override fun createFragment(): Fragment = AhaListFragment()
+class AhaListActivity : Activity() {
 
 }
